@@ -83,3 +83,12 @@ if __name__ == '__main__':
     threads = [Thread(process, i, DEFAULT_NUM_RUNS) for i in range(NUM_THREADS)]
     [t.join() for t in threads]
 ```
+
+
+
+
+##### resources:
+- https://www.youtube.com/watch?v=3pUScfud9Sg
+- https://cppsecrets.com/users/120612197115104981111171149751485164103109971051084699111109/Python-Implementation-of-Bakery-Algorithm.php#:~:text=Description%3A,lowest%20number%20gets%20service%20next.
+- https://www.geeksforgeeks.org/bakery-algorithm-in-process-synchronization/
+- https://en.wikipedia.org/wiki/Lamport%27s_bakery_algorithm
