@@ -1,6 +1,7 @@
 """This module contains an implementation of bakery algorithm.
 
-Bakery algorithm assures mutual exclusion of N threads.
+Bakery algorithm  ensures that processes execute a critical section of code one at a time. A process trying to
+execute that code chooses a number it believes to be higher than the numbers chosen by other such processes..
 """
 
 __author__ = "Paljko Urbanek"
