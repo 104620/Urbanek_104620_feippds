@@ -37,7 +37,7 @@ def process(tid: int, num_runs: int):
         num[i] = 1 + max(num)
         In[i] = 0
 
-        # wait for other processes to finish their execution of critical section
+        # loop that determines waiting position of threads on behalf of two conditions
         for j in range(NUM_THREADS):
             while In[i] == 1:
                 continue
