@@ -4,8 +4,8 @@ Bakery algorithm  ensures that processes execute a critical section of code one 
 execute that code chooses a number it believes to be higher than the numbers chosen by other such processes..
 """
 
-__author__ = "Paljko Urbanek"
-__email__ = "xurbanek@stuba.sk"
+__authors__ = "Paljko Urbanek, Tomáš Vavro"
+__email__ = "xurbanek@stuba.sk, xvavro@stuba.sk"
 __license__ = "MIT"
 
 from fei.ppds import Thread
