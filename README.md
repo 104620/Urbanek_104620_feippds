@@ -152,7 +152,8 @@ if __name__ == "__main__":
 
 *In all of these processes where we have used mutex. We used is as lock that another thread can't
 attend same process. This time for incrementation and decrementation capacity of waiting_room.
-
+*Implemented code you can test with proper represented such as IDLE running the main.
+Also, the code is generating output that works on basic principles of this problem. 
 
 Resources:
 - https://github.com/tj314/ppds-2023-cvicenia/blob/master/seminar3/mutex.py
