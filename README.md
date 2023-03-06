@@ -1,6 +1,18 @@
 # Urbanek_104620_feippds assignment 02
 ## Sleeping barber problem implementation
 
+In this assignment we have implemented the sleeping barber problem in python.
+This implementation helped us learn more about synchronization problem and problem-solving
+with multiple threads. We have learned how to work with mutex, semaphore and we got
+better understanding on how to work with multiple threads.
+
+What is sleeping barker problem?
+
+It is a classic synchronization problem with barber shop. This barber shop consists with
+waiting room of size N and a barber chair. When a customer arrives there is control of 
+integrity if room is full and if barber is free. If a barber is free(sleeping) customer can
+wake him and barber can start to cut customer hair. This process is looped. 
+
 ```python
 from fei.ppds import Mutex, Thread, Semaphore
 from time import sleep
