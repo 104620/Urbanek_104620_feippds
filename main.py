@@ -1,5 +1,6 @@
 """
-Program represents different sequences of using mutex
+Program implements problem of solving the sleeping barber problem
+It represents different sequences of using mutex
 University: STU Slovak Technical University in Bratislava
 Faculty: FEI Faculty of Electrical Engineering and Information Technology
 Year: 2023
@@ -18,6 +19,7 @@ from fei.ppds import print
 class Shared(object):
 
     def __init__(self):
+        # initialized variables of class shared
         self.mutex = Mutex()
         self.waiting_room = 0
         self.customer = Semaphore(0)
@@ -49,16 +51,19 @@ def growing_hair(i):
 def customer(i, shared):
 
     while True:
+        # customer tries to enter full rom
         while shared.waiting_room >= N:
             balk(i)
             sleep(randint(1,10))
 
+        # room is not full customer enters the room
         if shared.waiting_room < N:
             print(f"CUSTOMER {i} is in the room.")
             shared.mutex.lock()
             shared.waiting_room += 1
             shared.mutex.unlock()
 
+        # barber is available, customer gets haircut
         if shared.barber:
             shared.customer.signal()
             shared.barber.wait()
@@ -72,12 +77,14 @@ def customer(i, shared):
 def barber(shared):
 
     while True:
+        # rendezvous 1. Customer is waiting for barber to cut his hair
         shared.customer.wait()
         shared.barber.signal()
         cut_hair()
         shared.mutex.lock()
         shared.waiting_room -= 1
         shared.mutex.unlock()
+        # rendezvous 1. Barber finished the cut. Customer is free to leave
         shared.customer_done.signal()
         shared.barber_done.wait()
 
