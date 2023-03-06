@@ -13,6 +13,8 @@ waiting room of size N and a barber chair. When a customer arrives there is cont
 integrity if room is full and if barber is free. If a barber is free(sleeping) customer can
 wake him and barber can start to cut customer hair. This process is looped. 
 
+
+Firstly we have imported all necessary libraries
 ```python
 from fei.ppds import Mutex, Thread, Semaphore
 from time import sleep
@@ -20,6 +22,10 @@ from random import randint
 from fei.ppds import print
 ```
 
+
+Secondly we have initialized all necessary patterns and variables that we will use
+in relations with barber and customer. We have initialized customer and barber on Semaphore(0) so 
+we can signal() and wait() these relations.
 ```python
 class Shared(object):
 
@@ -32,6 +38,12 @@ class Shared(object):
         self.customer_done = Semaphore(0)
         self.barber_done = Semaphore(0)
 ```
+
+Thirdly we have implemented auxiliary functions for stimulation's process such as:
+- getting haircut
+- cutting hair
+- growing hair
+- trying again if waiting_room is full
 
 ```python
 def get_haircut(i):
@@ -54,6 +66,15 @@ def growing_hair(i):
     print(f"CUSTOMER {i} has grown hair.")
 ```
 
+Fourthly we implemented customer function. 
+Where arguments are:
+- i (number of customer)
+- shared (class of shared mutex's, customer, barber,capacity)
+
+First while is controlling the customers if waiting_room is full. While loop
+ensures that customer will not go in to the room and will try again after some period of time.
+Second condition is allows customer to enter the room. With incrementing the capacity of waiting_room.
+Third condition enables to customer based on barber's availability that he can attend the chair or not.
 ```python
 def customer(i, shared):
 
@@ -81,6 +102,13 @@ def customer(i, shared):
             growing_hair(i)
 ```
 
+Fifthly we have implemented barber function.
+Arguments:
+- shared (class of shared mutex's, customer, barber,capacity)
+
+We have two rendezvous where customer is waiting for the barber to cut his hair where we
+also used stimulation of this process and then combined process of customer leaving the room
+and decrementation of capacity of waiting_room. 
 ```python
 def barber(shared):
 
@@ -97,11 +125,15 @@ def barber(shared):
         shared.barber_done.wait()
 ```
 
+Initialized global variables:
+- C = Number of customers
+- N = Size of waiting_room
 ```python
 C: int = 5
 N: int = 3
 ```
 
+Last part is the principal of the parallel processing. Where we are defining threads and joining them in the end.
 ```python
 def main():
     shared = Shared()
@@ -117,3 +149,14 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+*In all of these processes where we have used mutex. We used is as lock that another thread can't
+attend same process. This time for incrementation and decrementation capacity of waiting_room.
+
+
+Resources:
+- https://github.com/tj314/ppds-2023-cvicenia/blob/master/seminar3/mutex.py
+- https://github.com/tj314/ppds-2023-cvicenia/blob/master/seminar3/barberShop.py
+- https://en.wikipedia.org/wiki/Sleeping_barber_problem
+- https://github.com/bragisig/python-sleeping-barber
+- https://greenteapress.com/wp/semaphores/
