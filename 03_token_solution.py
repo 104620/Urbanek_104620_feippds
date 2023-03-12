@@ -1,5 +1,5 @@
 """This module implements dinning philosophers problem.
- Left-Rightly solution is implemented.
+ Token solution is implemented.
  """
 
 __author__ = "Paljko Urbanek, Tomáš Vavro"
@@ -54,9 +54,11 @@ def philosopher(i: int, shared: Shared):
     for _ in range(NUM_RUNS):
         think(i)
         # lock token for current philosopher
+        # right
         if i % 2 == 0:
             shared.tokens[i].lock()
             shared.tokens[(i + 1) % NUM_PHILOSOPHERS].lock()
+        # left
         else:
             shared.tokens[(i + 1) % NUM_PHILOSOPHERS].lock()
             shared.tokens[i].lock()
