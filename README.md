@@ -1,7 +1,8 @@
-# Urbanek_104620_feippds assignment 04
+# Urbanek_104620_feippds assignment 03
 ## Dinning philosophers problem
 
---Definition needed.
+We have implemented multiple solutions for dinning philosophers problem such as waiter, left-rightly and token solution.
+We have described the code of each one of them and at the end we compared each solution.
 
 
 ### Waiter Solution
@@ -188,7 +189,19 @@ def philosopher(i: int, shared: Shared):
 ```
 
 * At last, I will answer the request from the presentation and compare the implemented solutions with waiter solution.
+  - The first solution is waiter solution that has one "person"(waiter) as the control unit. This ensures that only
+  one philosopher at the time can eat. 
+  - The second solution is left-rightly solution that separated the philosophers to even and odd based on their number.
+  This solution ensures that under zero circumstances can't adjacent philosophers can pick forks at the same time. Prevents
+  deadlock.
+  - The third solution is token solution. This solution is giving to philosophers tokens on which circumstances they can pick up
+  the forks if they have certain number of tokens. Prevents deadlock because solution ensures that adjacent philosophers can't
+  pick forks at the same time.
 
+### Summary
+Based on what we learned we can say that token solution is the only solution where philosophers manage their own allocations.
+So solution is more flexible. But because of that left-rightly and token solution is more complex to implement than waiter
+that uses one authority to manage allocations. 
 
 Recourses:
 * https://pages.mtu.edu/~shene/NSF-3/e-Book/MUTEX/TM-example-left-right.html#:~:text=If%20philosopher%20P%20has%20his,will%20put%20down%20both%20chopsticks.
