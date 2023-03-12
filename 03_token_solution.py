@@ -54,8 +54,12 @@ def philosopher(i: int, shared: Shared):
     for _ in range(NUM_RUNS):
         think(i)
         # lock token for current philosopher
-        shared.tokens[i].lock()
-        shared.tokens[(i + 1) % NUM_PHILOSOPHERS].lock()
+        if i % 2 == 0:
+            shared.tokens[i].lock()
+            shared.tokens[(i + 1) % NUM_PHILOSOPHERS].lock()
+        else:
+            shared.tokens[(i + 1) % NUM_PHILOSOPHERS].lock()
+            shared.tokens[i].lock()
         # get forks
         shared.forks[i].lock()
         shared.forks[(i + 1) % NUM_PHILOSOPHERS].lock()
