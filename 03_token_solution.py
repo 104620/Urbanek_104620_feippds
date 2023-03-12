@@ -6,7 +6,7 @@ __author__ = "Paljko Urbanek, Tomáš Vavro"
 __email__ = "xurbanek@stuba.sk, xvavro@stuba.sk"
 __license__ = "MIT"
 
-from fei.ppds import Thread, Semaphore, Mutex, print
+from fei.ppds import Thread, Mutex, print
 from time import sleep
 
 NUM_PHILOSOPHERS: int = 5
