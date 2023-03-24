@@ -52,7 +52,7 @@ def put_servings_in_pot(chef_id: int, shared):
 
 
 def savage(savage_id: int, shared):
-    """Run philosopher's code.
+    """Run savage's code.
     Args:
         savage_id -- savage's id
         shared -- class instance of shared variable
