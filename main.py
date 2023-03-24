@@ -1,5 +1,4 @@
-"""This module implements dinning philosophers problem.
- Token solution is implemented.
+"""This module implements solution for dinning savages problem with two chefs.
  """
 
 __author__ = "Paljko Urbanek, Marian Šebeňa, Tomáš Vavro"
@@ -9,9 +8,9 @@ __license__ = "MIT"
 from fei.ppds import Thread, Mutex, print, Semaphore
 from time import sleep
 
-D = 10
-H = 5
-K = 2
+D = 10  # num of savages
+H = 5   # num of max portions in pot
+K = 2   # num of chefs
 
 
 class Shared:
@@ -31,20 +30,35 @@ class Shared:
 
 
 def get_serving_from_pot(savage_id: int, shared):
+    """Stimulate getting portion from the pot.
+    Args:
+        savage_id -- savage's id
+        shared -- class instance of shared variable
+    """
     shared.servings -= 1
     print(f"Savage {savage_id} took the portion.")
     sleep(0.1)
 
 
 def put_servings_in_pot(chef_id: int, shared):
+    """Stimulate cooking process when chef put portion to the pot.
+    Args:
+        chef_id -- chef's id
+        shared -- class instance of shared variable
+    """
     shared.servings += 1
     print(f"Chef {chef_id} I am cooking")
     sleep(0.1)
 
 
 def savage(savage_id: int, shared):
+    """Run philosopher's code.
+    Args:
+        savage_id -- savage's id
+        shared -- class instance of shared variable
+    """
     while True:
-        # calling the chef when pot is empty
+        # waiting for the full pot
         shared.full_pot.wait()
 
         # gathering the savages
@@ -57,6 +71,7 @@ def savage(savage_id: int, shared):
         shared.mutex.unlock()
         shared.barrier1.wait()
 
+        # gathering savages for eating process
         shared.mutex.lock()
         if shared.servings != 0:
             shared.num_eating += 1
@@ -70,7 +85,6 @@ def savage(savage_id: int, shared):
             shared.empty_pot.signal(H)
 
         # wait for all savages to finish eating
-
         shared.mutex.lock()
         shared.num_eating -= 1
         if shared.num_eating == 0:
@@ -80,6 +94,11 @@ def savage(savage_id: int, shared):
 
 
 def chef(chef_id: int, shared):
+    """Run chef's code.
+    Args:
+        chef_id -- chef's id
+        shared -- class instance of shared variable
+    """
     while True:
         shared.empty_pot.wait()
         shared.mutex.lock()
