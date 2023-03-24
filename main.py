@@ -71,13 +71,13 @@ def savage(savage_id: int, shared):
             shared.empty_pot.signal(H)
 
         # wait for all savages to finish eating
-        shared.barrier2.wait()
 
         shared.mutex.lock()
         shared.num_eating -= 1
         if shared.num_eating == 0:
             shared.barrier2.signal(D)
         shared.mutex.unlock()
+        shared.barrier2.wait()
 
 
 def chef(chef_id: int, shared):
