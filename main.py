@@ -23,7 +23,6 @@ class Shared:
         self.servings = H
         self.full_pot = Semaphore(H)
         self.empty_pot = Semaphore(0)
-        self.pot_full = False
 
         self.barrier1 = Semaphore(0)
         self.barrier2 = Semaphore(0)
