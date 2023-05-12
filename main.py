@@ -13,7 +13,11 @@ from datetime import datetime
 
 @cuda.jit
 def grayscale_gpu(img, gray):
-    """Converting RGB image to grayscale. GPU method"""
+    """Converting RGB image to grayscale. GPU method
+    Args:
+        img -- input image as NumPy array
+        gray -- output grayscale image
+    """
     x, y = cuda.grid(2)
     if x < img.shape[1] and y < img.shape[0]:
         b = img[y, x, 0]
@@ -24,7 +28,11 @@ def grayscale_gpu(img, gray):
 
 @jit
 def grayscale_cpu(img, gray):
-    """Converting RGB image to grayscale. CPU method"""
+    """Converting RGB image to grayscale. CPU method
+    Args:
+        img -- input image as NumPy array
+        gray -- output grayscale image
+    """
     for y in range(img.shape[0]):
         for x in range(img.shape[1]):
             b = img[y, x, 0]
@@ -34,8 +42,10 @@ def grayscale_cpu(img, gray):
 
 
 def transform_to_gray_scale(pixels):
-    """Transform pixels to grayscale picture"""
-
+    """Transform pixels to grayscale picture
+    Args:
+        pixels -- input image as NumPy array
+    """
     # GPU conversion
     if cuda.is_available():
         # Set up CUDA grid and block dimensions
